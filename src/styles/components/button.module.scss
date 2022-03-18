@@ -1,0 +1,248 @@
+@use "../base/mixins";
+@use "../base/constants" as *;
+
+button.button {
+  $color-primary: #ece8fc;
+  $color-secondary: $purple;
+
+  @include mixins.center;
+  min-width: 150px;
+  padding: 12px 30px;
+  vertical-align: middle;
+  border: none;
+  background-color: $color-secondary;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 5px;
+  width: max-content;
+
+  p {
+    font-size: 1.2em;
+    margin: 0;
+    letter-spacing: 0.8px;
+    color: $color-primary;
+  }
+
+  p + .icon {
+    margin-left: 0.5em;
+  }
+
+  .icon {
+    margin: 0;
+    font-size: 1.45em;
+    color: $color-primary;
+  }
+
+  &:hover {
+    transform: scale(1.07);
+  }
+
+  &:not(:last-child) {
+    margin-right: 1.5em;
+  }
+
+  // DIFFERENT COLOR VARIATIONS
+
+  &[data-value="1 0"] {
+    $color-primary: $purple;
+    $color-secondary: #ece8fc;
+
+    background-color: $color-secondary;
+    border: 1.5px solid $color-primary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &[data-value="0 1"] {
+    $color-primary: #fee7e9;
+    $color-secondary: $red;
+
+    background-color: $color-secondary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &[data-value="1 1"] {
+    $color-primary: $red;
+    $color-secondary: #fee7e9;
+
+    background-color: $color-secondary;
+    border: 1.5px solid $color-primary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &[data-value="0 2"] {
+    $color-primary: #fff3e8;
+    $color-secondary: $yellow;
+
+    background-color: $color-secondary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &[data-value="1 2"] {
+    $color-primary: $yellow;
+    $color-secondary: #fff3e8;
+
+    background-color: $color-secondary;
+    border: 1.5px solid $color-primary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &[data-value="0 3"] {
+    $color-primary: #e3faf1;
+    $color-secondary: $green;
+
+    background-color: $color-secondary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &[data-value="1 3"] {
+    $color-primary: $green;
+    $color-secondary: #e3faf1;
+
+    background-color: $color-secondary;
+    border: 1.5px solid $color-primary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &[data-value="0 4"] {
+    $color-primary: #e7eeff;
+    $color-secondary: $blue;
+
+    background-color: $color-secondary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &[data-value="1 4"] {
+    $color-primary: $blue;
+    $color-secondary: #e7eeff;
+
+    background-color: $color-secondary;
+    border: 1.5px solid $color-primary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &[data-value="0 5"] {
+    $color-primary: #f1f0f1;
+    $color-secondary: $black;
+
+    background-color: $color-secondary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  &[data-value="1 5"] {
+    $color-primary: $black;
+    $color-secondary: rgba(#f1f0f1, 0.15);
+
+    background-color: $color-secondary;
+    border: 1.5px solid $color-primary;
+
+    p {
+      color: $color-primary;
+    }
+
+    .icon {
+      color: $color-primary;
+    }
+  }
+
+  // DIFFERENT SIZE VARIATIONS
+
+  &[data-size="1"] {
+    min-width: 80px;
+    padding: 8px 20px;
+
+    p {
+      font-size: 1.2em;
+      letter-spacing: 0;
+      padding: 0;
+    }
+
+    .icon {
+      font-size: 1.2em;
+    }
+  }
+
+  &[data-size="2"] {
+    min-width: 180px;
+    padding: 20px 40px;
+
+    p {
+      font-size: 1.8em;
+      letter-spacing: 0;
+      padding: 0;
+    }
+
+    .icon {
+      font-size: 1.8em;
+    }
+  }
+}
