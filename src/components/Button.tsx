@@ -1,7 +1,7 @@
-import { IconProps } from "phosphor-react";
+import { IconProps, IconWeight } from "phosphor-react";
 import { MouseEventHandler } from "react";
 
-import styles from "../../styles/components/button.module.scss";
+import styles from "../styles/components/button.module.scss";
 
 enum ButtonHeirarchy {
   primary,
@@ -31,12 +31,13 @@ interface Props {
   heirarchy?: ButtonHeirarchy;
   color?: ButtonColor;
   size?: ButtonSize;
+  iconWt?: IconWeight;
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button = (props: Props) => {
   const value = `${props.heirarchy?.toString() ?? "0"} ${
-    props.color?.toString() ?? "0"
+    props.color?.toString() ?? "5"
   }`;
   return (
     <button
@@ -46,7 +47,9 @@ const Button = (props: Props) => {
       onClick={props.onClick}
     >
       {props.text && <p>{props.text}</p>}
-      {props.icon && <props.icon className={styles.icon} weight="bold" />}
+      {props.icon && (
+        <props.icon className={styles.icon} weight={props.iconWt ?? "fill"} />
+      )}
     </button>
   );
 };

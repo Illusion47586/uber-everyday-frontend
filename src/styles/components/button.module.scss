@@ -13,14 +13,18 @@ button.button {
   background-color: $color-secondary;
   cursor: pointer;
   transition: all 0.3s;
-  border-radius: 5px;
+  border-radius: 3px;
   width: max-content;
+  position: relative;
 
   p {
-    font-size: 1.2em;
+    font-family: "Manrope", sans-serif;
+    font-weight: 500;
+    font-size: 1.5em;
     margin: 0;
-    letter-spacing: 0.8px;
     color: $color-primary;
+    z-index: 2;
+    transition: all 0.3s;
   }
 
   p + .icon {
@@ -31,10 +35,34 @@ button.button {
     margin: 0;
     font-size: 1.45em;
     color: $color-primary;
+    z-index: 2;
+    transition: all 0.3s;
+  }
+
+  &::before {
+    content: "";
+    background-color: rgba(white, 0.1);
+    width: 0;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    transition: all 0.3s;
+    border-radius: 100px;
   }
 
   &:hover {
-    transform: scale(1.07);
+    .icon {
+      transform: translateX(20%);
+    }
+
+    &::before {
+      width: 100%;
+      transform: translate(0, -50%);
+      border-radius: 3px;
+    }
   }
 
   &:not(:last-child) {
@@ -48,7 +76,7 @@ button.button {
     $color-secondary: #ece8fc;
 
     background-color: $color-secondary;
-    border: 1.5px solid $color-primary;
+    // border: 1.5px solid $color-primary;
 
     p {
       color: $color-primary;
@@ -79,7 +107,7 @@ button.button {
     $color-secondary: #fee7e9;
 
     background-color: $color-secondary;
-    border: 1.5px solid $color-primary;
+    // border: 1.5px solid $color-primary;
 
     p {
       color: $color-primary;
@@ -110,7 +138,7 @@ button.button {
     $color-secondary: #fff3e8;
 
     background-color: $color-secondary;
-    border: 1.5px solid $color-primary;
+    // border: 1.5px solid $color-primary;
 
     p {
       color: $color-primary;
@@ -141,7 +169,7 @@ button.button {
     $color-secondary: #e3faf1;
 
     background-color: $color-secondary;
-    border: 1.5px solid $color-primary;
+    // border: 1.5px solid $color-primary;
 
     p {
       color: $color-primary;
@@ -172,7 +200,7 @@ button.button {
     $color-secondary: #e7eeff;
 
     background-color: $color-secondary;
-    border: 1.5px solid $color-primary;
+    // border: 1.5px solid $color-primary;
 
     p {
       color: $color-primary;
@@ -203,7 +231,7 @@ button.button {
     $color-secondary: rgba(#f1f0f1, 0.15);
 
     background-color: $color-secondary;
-    border: 1.5px solid $color-primary;
+    // border: 1.5px solid $color-primary;
 
     p {
       color: $color-primary;

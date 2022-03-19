@@ -1,5 +1,6 @@
 @use "./base/typography";
 @use "./base/constants";
+@use "./base/mixins";
 
 @use "./components/form";
 
@@ -15,6 +16,10 @@ html {
   overflow-x: hidden;
   background-color: constants.$bg-color-primary;
   scroll-behavior: smooth;
+
+  width: 100vw;
+  height: 100vh;
+  @include mixins.center;
 
   &::-webkit-scrollbar {
     width: 0;
