@@ -6,20 +6,26 @@ import {
   ButtonSize,
 } from "../components/Button";
 
+import Map from "../components/Map";
+
 type Props = {};
 
 const Home = (props: Props) => {
   return (
     <div>
       <Button
-        onClick={() => {}}
+        onClick={() => { }}
         text="Get Started"
         // color={ButtonColor.Green}
         icon={ArrowRight}
         iconWt="bold"
-        // heirarchy={ButtonHeirarchy.secondary}
+      // heirarchy={ButtonHeirarchy.secondary}
       />
-    </div>
+
+      {/* Map will take the size of its container */}
+      <Map></Map>
+
+    </div >
   );
 };
 
