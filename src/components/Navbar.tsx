@@ -68,7 +68,7 @@ const Navbar = (props: NavProps) => {
               <Button
                 size={ButtonSize.small}
                 text="Sign out"
-                onClick={() => {}}
+                onClick={() => { }}
                 heirarchy={ButtonHeirarchy.secondary}
                 icon={SignOut}
                 iconWt="bold"
@@ -80,7 +80,7 @@ const Navbar = (props: NavProps) => {
                 <Button
                   size={ButtonSize.small}
                   text="Login"
-                  onClick={() => {}}
+                  onClick={() => { }}
                   icon={SignIn}
                   iconWt="bold"
                 />
@@ -89,7 +89,7 @@ const Navbar = (props: NavProps) => {
                 <Button
                   size={ButtonSize.small}
                   text="Signup"
-                  onClick={() => {}}
+                  onClick={() => { }}
                   heirarchy={ButtonHeirarchy.secondary}
                   icon={ArrowRight}
                   iconWt="bold"

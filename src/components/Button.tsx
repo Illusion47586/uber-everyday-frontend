@@ -36,10 +36,11 @@ interface Props {
 }
 
 const Button = (props: Props) => {
-  const value = `${props.heirarchy?.toString() ?? "0"} ${
-    props.color?.toString() ?? "5"
-  }`;
+  const value = `${props.heirarchy?.toString() ?? "0"} ${props.color?.toString() ?? "5"
+    }`;
+
   return (
+
     <button
       data-value={value}
       data-size={props.size?.toString() ?? "0"}
@@ -51,6 +52,7 @@ const Button = (props: Props) => {
         <props.icon className={styles.icon} weight={props.iconWt ?? "fill"} />
       )}
     </button>
+
   );
 };
 

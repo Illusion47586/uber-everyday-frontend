@@ -1,0 +1,18 @@
+@use "../base/mixins";
+@use "../base/constants" as *;
+
+.homeContainer {
+    @include mixins.fullViewport;
+    display: grid;
+    grid-template-columns: 75% 25%;
+    padding: 10px;
+
+
+    .homePanel {
+        @include mixins.center;
+        display: flex;
+        flex-direction: row;
+    }
+    
+    
+}

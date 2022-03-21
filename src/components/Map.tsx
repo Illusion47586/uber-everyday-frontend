@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { User } from "phosphor-react";
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import styles from "../styles/components/map.module.scss";
 
 const GOOGLE_MAP_API_KEY = "AIzaSyD-4mYliv0FRhXyWZAtJuzWLmpn6VrHEdc";
 
-function Maps() {
+function Maps(props) {
     const [map, setMap] = useState<google.maps.Map | null>(null)
     const containerStyle = {
         width: '100%',
@@ -22,36 +24,25 @@ function Maps() {
 
     return (
 
-        <div className="MapContainer" style={{
+        <div className="map" style={{
             height: "100%",
             width: "100%",
         }}>
+            <button className={styles.mapCenteringBtn} onClick={() => {
+                if (map) {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(position => {
+                            center.lat = position.coords.latitude
+                            center.lng = position.coords.longitude
 
-
-            <input type="button" name="center" id="center" style={{
-                width: "25px",
-                height: "25px",
-                backgroundColor: "red",
-                zIndex: 4,
-                position: 'absolute',
-                bottom: "2.5%",
-                right: "0.5%",
-            }}
-                onClick={() => {
-                    if (map) {
-                        if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(position => {
-                                center.lat = position.coords.latitude
-                                center.lng = position.coords.longitude
-
-                                map.panTo(center)
-                                map.setZoom(15)
-                            })
-                        }
+                            map.panTo(center)
+                            map.setZoom(15)
+                        })
                     }
-                }}
-
-            />
+                }
+            }}>
+                <User className={styles.icon} weight={"bold"} />
+            </button>
 
             <LoadScript googleMapsApiKey={GOOGLE_MAP_API_KEY}>
                 < GoogleMap
