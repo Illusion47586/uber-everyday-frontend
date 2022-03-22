@@ -2,17 +2,14 @@
 @use "../base/constants" as *;
 
 .homeContainer {
-    @include mixins.fullViewport;
-    display: grid;
-    grid-template-columns: 75% 25%;
-    padding: 10px;
-
-
-    .homePanel {
-        @include mixins.center;
-        display: flex;
-        flex-direction: row;
-    }
-    
-    
+  @include mixins.fullViewport;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  padding: 20px;
+  padding-top: 80px;
+  .homePanel {
+    @include mixins.center;
+    display: flex;
+    flex-direction: row;
+  }
 }
