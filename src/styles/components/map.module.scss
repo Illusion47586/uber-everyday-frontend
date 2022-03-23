@@ -1,6 +1,11 @@
 @use "../base/mixins";
 @use "../base/constants" as *;
 
+.MapContainer {
+  height: 100%;
+  width: 100%;
+}
+
 .mapCenteringBtn {
   $color-primary: $black;
 
