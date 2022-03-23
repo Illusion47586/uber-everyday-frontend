@@ -3,9 +3,10 @@ import { MouseEventHandler } from "react";
 
 import styles from "../styles/components/button.module.scss";
 
-enum ButtonHeirarchy {
+enum ButtonHierarchy {
   primary,
   secondary,
+  map,
 }
 
 enum ButtonColor {
@@ -28,7 +29,7 @@ interface Props {
   icon?: React.ForwardRefExoticComponent<
     IconProps & React.RefAttributes<SVGSVGElement>
   >;
-  heirarchy?: ButtonHeirarchy;
+  hierarchy?: ButtonHierarchy;
   color?: ButtonColor;
   size?: ButtonSize;
   iconWt?: IconWeight;
@@ -36,15 +37,12 @@ interface Props {
 }
 
 const Button = (props: Props) => {
-  const value = `${props.heirarchy?.toString() ?? "0"} ${props.color?.toString() ?? "5"
-    }`;
-
+  const value = `${props.hierarchy?.toString() ?? "0"} ${props.color?.toString() ?? "5"}`;
   return (
-
     <button
       data-value={value}
       data-size={props.size?.toString() ?? "0"}
-      className={styles.button}
+      className={props.hierarchy?.toString() == "2" ? styles.mapbutton : styles.button}
       onClick={props.onClick}
     >
       {props.text && <p>{props.text}</p>}
@@ -56,4 +54,4 @@ const Button = (props: Props) => {
   );
 };
 
-export { Button, ButtonHeirarchy, ButtonColor, ButtonSize };
+export { Button, ButtonHierarchy, ButtonColor, ButtonSize };
