@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AuthContext, AuthContextInterface } from "../context/AuthContext";
 
 import styles from "../styles/components/navbar.module.scss";
-import { Button, ButtonHeirarchy, ButtonSize } from "./Button";
+import { Button, ButtonHierarchy, ButtonSize } from "./Button";
 
 type Props = {
   to: string;
@@ -69,7 +69,7 @@ const Navbar = (props: NavProps) => {
                 size={ButtonSize.small}
                 text="Sign out"
                 onClick={() => { }}
-                heirarchy={ButtonHeirarchy.secondary}
+                hierarchy={ButtonHierarchy.secondary}
                 icon={SignOut}
                 iconWt="bold"
               />
@@ -90,7 +90,7 @@ const Navbar = (props: NavProps) => {
                   size={ButtonSize.small}
                   text="Signup"
                   onClick={() => { }}
-                  heirarchy={ButtonHeirarchy.secondary}
+                  hierarchy={ButtonHierarchy.secondary}
                   icon={ArrowRight}
                   iconWt="bold"
                 />
