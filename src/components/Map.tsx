@@ -5,7 +5,7 @@ import styles from "../styles/components/map.module.scss";
 
 const GOOGLE_MAP_API_KEY = "AIzaSyD-4mYliv0FRhXyWZAtJuzWLmpn6VrHEdc";
 
-function Maps(props) {
+function Maps() {
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
   const containerStyle = {
@@ -48,7 +48,7 @@ function Maps(props) {
           center.lat = pos.lat;
           center.lng = pos.lng;
 
-          map.setCenter(center);
+          map?.setCenter(center);
           console.log(center);
         }}
       >
