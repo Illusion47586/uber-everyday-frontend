@@ -18,12 +18,16 @@ html {
   scroll-behavior: smooth;
 
   width: 100vw;
-  height: 100vh;
+  // height: 100vh;
   @include mixins.center;
+}
 
-  &::-webkit-scrollbar {
-    width: 0;
-    opacity: 0;
-    visibility: hidden;
-  }
+::-webkit-scrollbar {
+  width: 7px;
+  opacity: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(lightgrey, 0.8);
+  border-radius: 10px;
 }

@@ -35,7 +35,7 @@ const NormalLinks = [
 
 const AuthLinks = [
   { to: "/booked", title: "Current Schedules" },
-  { to: "/new", title: "Book New Schedule" },
+  { to: "/newride", title: "Book New Schedule" },
 ];
 
 const Navbar = (props: NavProps) => {
@@ -68,7 +68,7 @@ const Navbar = (props: NavProps) => {
               <Button
                 size={ButtonSize.small}
                 text="Sign out"
-                onClick={() => { }}
+                onClick={context.logout}
                 hierarchy={ButtonHierarchy.secondary}
                 icon={SignOut}
                 iconWt="bold"
@@ -80,7 +80,7 @@ const Navbar = (props: NavProps) => {
                 <Button
                   size={ButtonSize.small}
                   text="Login"
-                  onClick={() => { }}
+                  onClick={context?.login}
                   icon={SignIn}
                   iconWt="bold"
                 />
@@ -89,7 +89,7 @@ const Navbar = (props: NavProps) => {
                 <Button
                   size={ButtonSize.small}
                   text="Signup"
-                  onClick={() => { }}
+                  onClick={context?.login}
                   hierarchy={ButtonHierarchy.secondary}
                   icon={ArrowRight}
                   iconWt="bold"

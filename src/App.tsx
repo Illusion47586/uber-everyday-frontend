@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { ReactNode, useContext, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import { AuthContext } from "./context/AuthContext";
 import Home from "./pages/Home";
+import NewRide from "./pages/NewRide";
 import styles from "./styles/pages/base_page.module.scss";
 
 function App() {
@@ -9,6 +11,10 @@ function App() {
   useEffect(() => {
     if (!location.search && !location.hash) window.scrollTo(0, 0);
   }, [location]);
+  const context = useContext(AuthContext);
+
+  const ProtectedRoute = (child: ReactNode) =>
+    !context?.isAuthorized ? <Navigate to="/" /> : child;
 
   return (
     <>
@@ -16,6 +22,7 @@ function App() {
       <div className={styles.page}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/newride" element={ProtectedRoute(<NewRide />)} />
           {/* <Route path="/r" element={<Home />} /> */}
           <Route path="/*" element={<Navigate to="/" />} />
         </Routes>
