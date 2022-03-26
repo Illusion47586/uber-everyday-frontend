@@ -6,21 +6,6 @@
   width: 100%;
 }
 
-.mapCenteringBtn {
-  $color-primary: $black;
-
-  width: 35px;
-  height: 35px;
-  background-color: $color-primary;
-  z-index: 1;
-  position: absolute;
-  bottom: 5%;
-  right: 1.5%;
-  padding: none;
-  // border: none;
-  border-radius: 25%;
-
-  .icon {
-    z-index: 3;
-  }
+.StartInput {
+  z-index: 10;
 }

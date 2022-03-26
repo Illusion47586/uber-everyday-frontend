@@ -1,26 +1,13 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, ButtonHierarchy, ButtonColor, ButtonSize } from "./Button";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-// import {
-//   Combobox,
-//   ComboboxInput,
-//   ComboboxPopover,
-//   ComboboxList,
-//   ComboboxOption,
-// } from "@reach/combobox";
-import "@reach/combobox";
+import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete, DirectionsRenderer } from "@react-google-maps/api";
+import usePlacesAutocomplete, { getGeocode, getLatLng, } from "use-places-autocomplete";
+import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption, } from "@reach/combobox";
 import { Spinner, User } from "phosphor-react";
 import _uniqueId from "lodash/uniqueId";
 import icon from "../images/pin.png";
+import "@reach/combobox";
+import { useAsyncRetry } from "react-use";
 
 // variables
 const GOOGLE_MAPS_API_KEY = "AIzaSyD-4mYliv0FRhXyWZAtJuzWLmpn6VrHEdc";
@@ -57,8 +44,12 @@ export default function Map(props: any) {
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [markers, setMarkers] = useState<any>([]);
   const [selected, setSelected] = useState<any>(null);
+  const [directionRoute, setDirectionRoute] = useState<any>(null);
+  const [distance, setDistance] = useState<any>('');
+  const [duration, setDuration] = useState<any>('');
 
-  // console.log(map)
+  const StartRef = useRef<any>(null);
+  const EndRef = useRef<any>(null);
 
   const AddMarker = (event?: google.maps.MapMouseEvent) => {
     setMarkers((current: any) => [
@@ -83,6 +74,23 @@ export default function Map(props: any) {
     setMarkers(newMarkers);
   };
 
+  const CalculateDirection = async () => {
+    if (StartRef.current.value === null || EndRef.current.val === null)
+      return;
+
+    const directionCalc = new google.maps.DirectionsService();
+    const result = await directionCalc.route({
+      origin: StartRef.current.value,
+      destination: EndRef.current.value,
+      travelMode: google.maps.TravelMode.DRIVING
+    })
+
+    setDirectionRoute(result);
+    setDistance(result.routes[0].legs[0].distance?.text);
+    setDuration(result.routes[0].legs[0].duration?.text);
+  }
+
+
   // Loading Api Scripts
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
@@ -96,6 +104,15 @@ export default function Map(props: any) {
   // Map Component
   return (
     <div className="MapContainer">
+      <Autocomplete>
+        <input type="text" name="start" placeholder="Enter Start Location" className="StartInput" ref={StartRef} />
+      </Autocomplete>
+
+      <Autocomplete>
+        <input type="text" name="destination" placeholder="Enter End Location" className="StartInput" ref={EndRef} />
+      </Autocomplete>
+
+
       <Button
         color={ButtonColor.Black}
         hierarchy={ButtonHierarchy.map}
@@ -107,6 +124,10 @@ export default function Map(props: any) {
           map?.setZoom(UserZoom);
           setMap(map);
         }}
+      />
+
+      <Button
+        onClick={CalculateDirection}
       />
 
       <GoogleMap
@@ -129,7 +150,7 @@ export default function Map(props: any) {
             clickable={true}
             draggable={true}
             onDblClick={(event) => RemoveMarker(event, marker)}
-            onClick={() => {}}
+            onClick={() => { }}
             onMouseOver={() => {
               setSelected(marker);
             }}
@@ -160,6 +181,9 @@ export default function Map(props: any) {
             </div>
           </InfoWindow>
         ) : null}
+
+        {directionRoute && <DirectionsRenderer directions={directionRoute}></DirectionsRenderer>}
+
       </GoogleMap>
     </div>
   );
