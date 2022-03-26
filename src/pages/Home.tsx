@@ -11,16 +11,18 @@ import styles from "../styles/pages/base_page.module.scss";
 
 type Props = {};
 
-const Home = (props: Props) => {
+const MapTest = (props: Props) => {
   return (
     <div className={styles.homeContainer}>
       <div className={styles.homePanel}>
         <Button text="Get Started" icon={ArrowRight} iconWt="bold" />
       </div>
 
-      <Map></Map>
+      <div className={styles.mapDiv}>
+        <Map></Map>
+      </div>
     </div>
   );
 };
 
-export default Home;
+export default MapTest;

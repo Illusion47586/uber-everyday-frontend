@@ -38,26 +38,21 @@ interface Props {
 }
 
 const Button = (props: Props) => {
-  const value = `${props.hierarchy?.toString() ?? "0"} ${
-    props.color?.toString() ?? "5"
-  }`;
+  const value = `${props.hierarchy?.toString() ?? "0"} ${props.color?.toString() ?? "5"
+    }`;
   return props.submit ? (
     <input
       type="submit"
       placeholder={props.text}
       data-value={value}
       data-size={props.size?.toString() ?? "0"}
-      className={
-        props.hierarchy?.toString() == "2" ? styles.mapbutton : styles.button
-      }
+      className={styles.button}
     />
   ) : (
     <button
       data-value={value}
       data-size={props.size?.toString() ?? "0"}
-      className={
-        props.hierarchy?.toString() == "2" ? styles.mapbutton : styles.button
-      }
+      className={styles.button}
       onClick={props.onClick}
       type="button"
     >

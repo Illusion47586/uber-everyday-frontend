@@ -1,11 +1,51 @@
 @use "../base/mixins";
 @use "../base/constants" as *;
 
-.MapContainer {
+.mapContainer {
+  // display: grid;
+  // grid-template-columns: 6fr 4fr;
+  // margin: 0px 2% 0px 2%;
   height: 100%;
-  width: 100%;
+  // padding: 1%;
+  // padding-top: 0%
 }
 
-.StartInput {
-  z-index: 10;
+.mapNavigationContainer {
+  @include mixins.center;
+  flex-direction: column;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%);
+  padding: 2%;
+  margin: 1%;
+  background-color: $white;
+  border-radius: 10px;
+  width: max-content;
+
+  label {
+    font-weight: bolder;
+  }
+
+  input {
+    height: 100%;
+    width: 95%;
+  }
+
+  .startInput {
+    padding: 2%;
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+  
+  .endInput {
+    padding: 2%;
+    display: grid;
+    grid-template-columns: 3fr 1fr; 
+  }
+  
+  .btc {
+    display: flex;
+    justify-content: space-between;
+  }
 }
