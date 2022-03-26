@@ -97,6 +97,7 @@ nav#nav {
       @include mixins.center;
       border-radius: 7px;
       z-index: 1001;
+      cursor: pointer;
 
       svg {
         margin: 0;
