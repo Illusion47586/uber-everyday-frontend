@@ -34,21 +34,13 @@ interface Props {
   size?: ButtonSize;
   iconWt?: IconWeight;
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  submit?: boolean;
 }
 
 const Button = (props: Props) => {
-  const value = `${props.hierarchy?.toString() ?? "0"} ${props.color?.toString() ?? "5"
-    }`;
-  return props.submit ? (
-    <input
-      type="submit"
-      placeholder={props.text}
-      data-value={value}
-      data-size={props.size?.toString() ?? "0"}
-      className={styles.button}
-    />
-  ) : (
+  const value = `${props.hierarchy?.toString() ?? "0"} ${
+    props.color?.toString() ?? "5"
+  }`;
+  return (
     <button
       data-value={value}
       data-size={props.size?.toString() ?? "0"}

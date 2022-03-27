@@ -10,12 +10,7 @@ import { NavLink } from "react-router-dom";
 import { useWindowSize } from "react-use";
 import { AuthContext, AuthContextInterface } from "../context/AuthContext";
 
-import {
-  motion,
-  AnimatePresence,
-  useViewportScroll,
-  AnimateSharedLayout,
-} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 import styles from "../styles/components/navbar.module.scss";
 import { Button, ButtonHierarchy, ButtonSize } from "./Button";
@@ -117,7 +112,7 @@ const Navbar = (props: NavProps) => {
                 {context?.isAuthorized ? (
                   <motion.li>
                     <Button
-                      size={ButtonSize.small}
+                      size={reduce ? ButtonSize.normal : ButtonSize.small}
                       text="Sign out"
                       onClick={() => {
                         context?.logout();
@@ -132,7 +127,7 @@ const Navbar = (props: NavProps) => {
                   <>
                     <motion.li>
                       <Button
-                        size={ButtonSize.small}
+                        size={reduce ? ButtonSize.normal : ButtonSize.small}
                         text="Login"
                         onClick={() => {
                           context?.login();
@@ -144,7 +139,7 @@ const Navbar = (props: NavProps) => {
                     </motion.li>
                     <motion.li>
                       <Button
-                        size={ButtonSize.small}
+                        size={reduce ? ButtonSize.normal : ButtonSize.small}
                         text="Signup"
                         onClick={context?.login}
                         hierarchy={ButtonHierarchy.secondary}

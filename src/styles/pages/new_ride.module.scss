@@ -8,6 +8,7 @@ $bg: "https://images.unsplash.com/photo-1482029255085-35a4a48b7084?ixlib=rb-1.2.
   flex-direction: row;
   padding-top: 0;
   padding: 1em;
+  padding-top: 0;
   height: 100%;
 
   .cover {
@@ -34,5 +35,20 @@ $bg: "https://images.unsplash.com/photo-1482029255085-35a4a48b7084?ixlib=rb-1.2.
     width: 30%;
     padding: 2em;
     overflow-y: auto;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .page {
+    flex-direction: column;
+    width: 100%;
+
+    .cover {
+      width: 100%;
+    }
+
+    .form {
+      width: 100%;
+    }
   }
 }

@@ -6,6 +6,8 @@ import dateFormat from "dateformat";
 import { ArrowRight } from "phosphor-react";
 
 import styles from "../styles/components/registerForm.module.scss";
+import { motion } from "framer-motion";
+import { baseMotionSettings } from "../utils/defaultAnimation";
 
 const options = [
   { value: "Food", label: "Food" },
@@ -35,7 +37,8 @@ const NewRideSchema = Yup.object().shape({
   daysOfWeek: Yup.array()
     .min(1, "Select at least one day.")
     .max(7, "Select at most seven days.")
-    .required("Required"),
+    .required("Required")
+    .nullable(),
 });
 
 type Props = { className?: string };
@@ -45,7 +48,7 @@ const RegisterForm = (props: Props) => {
   // console.log(currentDate);
 
   return (
-    <div className={props.className}>
+    <motion.div className={props.className} {...baseMotionSettings}>
       <Formik
         initialValues={{
           source: null,
@@ -69,12 +72,12 @@ const RegisterForm = (props: Props) => {
           submitForm,
         }) => (
           <Form>
-            <label htmlFor="source">
+            <motion.label htmlFor="source">
               Source
               {errors.source && touched.source ? (
                 <span> ({errors.source})</span>
               ) : null}
-            </label>
+            </motion.label>
             <Select
               placeholder="Select Source"
               id="source"
@@ -94,12 +97,12 @@ const RegisterForm = (props: Props) => {
               }}
               value={values.source}
             />
-            <label htmlFor="destination">
+            <motion.label htmlFor="destination">
               Destination
               {errors.destination && touched.destination ? (
                 <span> ({errors.destination})</span>
               ) : null}
-            </label>
+            </motion.label>
             <Select
               placeholder="Select Destination"
               id="destination"
@@ -120,22 +123,22 @@ const RegisterForm = (props: Props) => {
               value={values.destination}
             />
 
-            <label htmlFor="from">
+            <motion.label htmlFor="from">
               From
               {errors.from && touched.from ? (
                 <span> ({errors.from})</span>
               ) : null}
-            </label>
+            </motion.label>
             <Field name="from" type="date" min={currentDate} />
 
             {values.from.length !== 0 && (
               <>
-                <label htmlFor="until">
+                <motion.label htmlFor="until">
                   Until
                   {errors.until && touched.until ? (
                     <span> ({errors.until})</span>
                   ) : null}
-                </label>
+                </motion.label>
                 <Field
                   name="until"
                   type="date"
@@ -146,12 +149,12 @@ const RegisterForm = (props: Props) => {
 
             {values.until.length !== 0 && (
               <>
-                <label htmlFor="time">
+                <motion.label htmlFor="time">
                   Time
                   {errors.time && touched.time ? (
                     <span> ({errors.time})</span>
                   ) : null}
-                </label>
+                </motion.label>
                 <Field
                   name="time"
                   type="time"
@@ -161,12 +164,12 @@ const RegisterForm = (props: Props) => {
             )}
             {values.time.length > 0 && (
               <>
-                <label htmlFor="daysOfWeek">
+                <motion.label htmlFor="daysOfWeek">
                   Days of Week
                   {errors.daysOfWeek && touched.daysOfWeek ? (
                     <span> ({errors.daysOfWeek})</span>
                   ) : null}
-                </label>
+                </motion.label>
                 <Select
                   placeholder="Select days of week."
                   id="daysOfWeek"
@@ -198,7 +201,7 @@ const RegisterForm = (props: Props) => {
           </Form>
         )}
       </Formik>
-    </div>
+    </motion.div>
   );
 };
 
