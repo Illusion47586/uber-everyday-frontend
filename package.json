@@ -8,7 +8,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reach/combobox": "^0.16.5",
     "@react-google-maps/api": "^2.7.0",
     "@types/dateformat": "^5.0.0",
     "axios": "^0.26.1",
@@ -22,7 +21,6 @@
     "react-router-dom": "^6.2.2",
     "react-select": "^5.2.2",
     "react-use": "^17.3.2",
-    "use-places-autocomplete": "^2.0.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

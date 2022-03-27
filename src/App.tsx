@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { AuthContext } from "./context/AuthContext";
 import Home from "./pages/Home";
+import MapTest from "./pages/MapTest";
 import NewRide from "./pages/NewRide";
 import styles from "./styles/pages/base_page.module.scss";
 
@@ -22,6 +23,7 @@ function App() {
       <div className={styles.page}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/map" element={<MapTest />} />
           <Route path="/newride" element={ProtectedRoute(<NewRide />)} />
           {/* <Route path="/r" element={<Home />} /> */}
           <Route path="/*" element={<Navigate to="/" />} />

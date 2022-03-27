@@ -1,17 +1,16 @@
 import React, { useRef, useState } from "react";
 import { Button, ButtonHierarchy, ButtonColor, ButtonSize } from "./Button";
 import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete, DirectionsRenderer } from "@react-google-maps/api";
-import usePlacesAutocomplete, { getGeocode, getLatLng, } from "use-places-autocomplete";
-import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption, } from "@reach/combobox";
-import { Spinner, User } from "phosphor-react";
+import { ArrowFatRight, NavigationArrow, Spinner, User } from "phosphor-react";
 import _uniqueId from "lodash/uniqueId";
 import icon from "../images/pin.png";
-import "@reach/combobox";
 import { useAsyncRetry } from "react-use";
+import styles from '../styles/components/map.module.scss';
 
 // variables
 const GOOGLE_MAPS_API_KEY = "AIzaSyD-4mYliv0FRhXyWZAtJuzWLmpn6VrHEdc";
-// const libraries = ["places"];
+
+const libraries = ["places"];
 const ZOOM = 5;
 const UserZoom = 16;
 const MAP_CONTAINER_STYLE = {
@@ -75,6 +74,7 @@ export default function Map(props: any) {
   };
 
   const CalculateDirection = async () => {
+
     if (StartRef.current.value === null || EndRef.current.val === null)
       return;
 
@@ -94,7 +94,8 @@ export default function Map(props: any) {
   // Loading Api Scripts
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
-    libraries: ["places"],
+    // @ts-ignore
+    libraries,
   });
 
   // handling errors
@@ -103,32 +104,84 @@ export default function Map(props: any) {
 
   // Map Component
   return (
-    <div className="MapContainer">
-      <Autocomplete>
-        <input type="text" name="start" placeholder="Enter Start Location" className="StartInput" ref={StartRef} />
-      </Autocomplete>
+    <div className={styles.mapContainer}>
 
-      <Autocomplete>
-        <input type="text" name="destination" placeholder="Enter End Location" className="StartInput" ref={EndRef} />
-      </Autocomplete>
+      {props.displayForm ?
+
+        <div className={styles.mapNavigationContainer}>
 
 
-      <Button
-        color={ButtonColor.Black}
-        hierarchy={ButtonHierarchy.map}
-        icon={User}
-        onClick={() => {
-          UpdateUserLocation();
-          map?.setCenter(CENTER);
-          map?.panTo(CENTER);
-          map?.setZoom(UserZoom);
-          setMap(map);
-        }}
-      />
+          {/* source Input */}
+          <div className={styles.startInput}>
+            {/* <label htmlFor="start">Start: </label> */}
+            <Autocomplete >
+              <input type="text" name="start" placeholder="Enter Start Location" ref={StartRef} />
+            </Autocomplete>
 
-      <Button
-        onClick={CalculateDirection}
-      />
+            {/* <NavigationArrow size={15} weight="fill" /> */}
+
+            <Button
+              icon={NavigationArrow}
+              size={ButtonSize.small}
+              color={ButtonColor.Red}
+              hierarchy={ButtonHierarchy.primary}
+              onClick={CalculateDirection}
+            />
+          </div>
+
+          {/* destination Input */}
+          <div className={styles.endInput}>
+            {/* <label htmlFor="destination">Destination: </label> */}
+            <Autocomplete>
+              <input type="text" name="destination" placeholder="Enter End Location" ref={EndRef} />
+            </Autocomplete>
+
+            <Button
+              icon={NavigationArrow}
+              size={ButtonSize.small}
+              color={ButtonColor.Red}
+              hierarchy={ButtonHierarchy.primary}
+              onClick={CalculateDirection}
+            />
+          </div>
+
+
+          <div className={styles.btc}>
+            {/* Calculate Direction */}
+            <Button
+              color={ButtonColor.Red}
+              hierarchy={ButtonHierarchy.primary}
+              icon={ArrowFatRight}
+              onClick={CalculateDirection}
+            />
+            {/* Center on User */}
+            <Button
+              color={ButtonColor.Black}
+              hierarchy={ButtonHierarchy.primary}
+              icon={User}
+              onClick={() => {
+                UpdateUserLocation();
+                map?.setCenter(CENTER);
+                map?.panTo(CENTER);
+                map?.setZoom(UserZoom);
+                setMap(map);
+              }}
+            />
+          </div>
+
+
+          {duration ?
+            <div>
+              <div>
+                duration : {duration} hrs
+              </div>
+              <div>
+                distance : {distance} kms
+              </div>
+            </div>
+            : null}
+        </div>
+        : null}
 
       <GoogleMap
         mapContainerStyle={MAP_CONTAINER_STYLE}
