@@ -19,7 +19,10 @@ const MapTest = (props: Props) => {
       </div>
 
       <div className={styles.mapDiv}>
-        <Map></Map>
+        <Map
+          displayForm={false}
+        >
+        </Map>
       </div>
     </div>
   );
