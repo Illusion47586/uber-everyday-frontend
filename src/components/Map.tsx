@@ -1,18 +1,18 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, ButtonHierarchy, ButtonColor, ButtonSize } from "./Button";
 import { GoogleMap, useLoadScript, Marker, InfoWindow, Autocomplete, DirectionsRenderer } from "@react-google-maps/api";
 import { ArrowFatRight, NavigationArrow, Spinner, User } from "phosphor-react";
 import _uniqueId from "lodash/uniqueId";
 import icon from "../images/pin.png";
-import { useAsyncRetry } from "react-use";
+import userLocal from "../images/location.png";
 import styles from '../styles/components/map.module.scss';
 
 // variables
 const GOOGLE_MAPS_API_KEY = "AIzaSyD-4mYliv0FRhXyWZAtJuzWLmpn6VrHEdc";
 
 const libraries = ["places"];
-const ZOOM = 5;
-const UserZoom = 16;
+const ZOOM = 15;
+const UserZoom = 15;
 const MAP_CONTAINER_STYLE = {
   height: "100%",
   width: "100%",
@@ -49,6 +49,23 @@ export default function Map(props: any) {
 
   const StartRef = useRef<any>(null);
   const EndRef = useRef<any>(null);
+
+  const [currentPosition, setCurrentPosition] = useState<any>(null);
+
+  const success = (position: any) => {
+    const currentPosition = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude
+    }
+    setCurrentPosition(currentPosition);
+  };
+
+  useEffect(() => {
+    UpdateUserLocation()
+    setMap(map);
+    map?.setCenter(CENTER)
+    navigator.geolocation.getCurrentPosition(success);
+  })
 
   const AddMarker = (event?: google.maps.MapMouseEvent) => {
     setMarkers((current: any) => [
@@ -173,10 +190,10 @@ export default function Map(props: any) {
           {duration ?
             <div>
               <div>
-                duration : {duration} hrs
+                duration : {duration}
               </div>
               <div>
-                distance : {distance} kms
+                distance : {distance}
               </div>
             </div>
             : null}
@@ -195,7 +212,7 @@ export default function Map(props: any) {
           setMap(map);
         }}
       >
-        {/* Dynamic Markers */}
+        {/* Dynamic Markers
         {markers.map((marker: any) => (
           <Marker
             key={marker.id}
@@ -233,7 +250,17 @@ export default function Map(props: any) {
               <p>created on: {selected.time?.toString()}</p>
             </div>
           </InfoWindow>
-        ) : null}
+        ) : null} */}
+
+        {currentPosition ?
+          <Marker
+            position={currentPosition}
+            icon={{
+              url: userLocal,
+              scaledSize: new google.maps.Size(50, 50),
+            }}
+          ></Marker>
+          : null}
 
         {directionRoute && <DirectionsRenderer directions={directionRoute}></DirectionsRenderer>}
 
