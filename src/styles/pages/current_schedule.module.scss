@@ -1,0 +1,22 @@
+@use "../base/mixins";
+@use "../base/constants" as *;
+
+.page {
+  margin-top: 97.6px;
+  height: calc(100vh - 97.6px);
+  width: 100vw;
+
+  h1 {
+      margin-left: 10px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .page {
+    height: auto;
+    
+    h1 {
+        margin-left: 10px;
+    }
+  }
+}

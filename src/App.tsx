@@ -2,6 +2,7 @@ import { ReactNode, useContext, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { AuthContext } from "./context/AuthContext";
+import CurrentSchedules from "./pages/CurrentSchedules";
 import Home from "./pages/Home";
 import MapTest from "./pages/MapTest";
 import NewRide from "./pages/NewRide";
@@ -25,6 +26,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/map" element={<MapTest />} />
           <Route path="/newride" element={ProtectedRoute(<NewRide />)} />
+          <Route path="/booked" element={ProtectedRoute(<CurrentSchedules />)} />
           {/* <Route path="/r" element={<Home />} /> */}
           <Route path="/*" element={<Navigate to="/" />} />
         </Routes>

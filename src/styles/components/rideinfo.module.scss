@@ -1,0 +1,9 @@
+@use "../base/mixins";
+@use "../base/constants" as *;
+
+.rides {
+    display: grid;
+    margin-left: 10px;
+    grid-template-columns: 3fr 3fr 1fr 1fr;
+
+}
