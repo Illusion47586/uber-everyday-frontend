@@ -1,5 +1,6 @@
 import { createContext, useState, FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface AuthContextInterface {
   isAuthorized: boolean;
@@ -15,6 +16,7 @@ const AuthContextProvider: FC = ({ children }) => {
 
   const login = () => {
     setIsAuthorized(true);
+    toast.info("Logged in as " + import.meta.env.VITE_TEST_ID + ".");
     navigate("/");
   };
   const logout = () => {

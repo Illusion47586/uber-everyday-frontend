@@ -3,20 +3,27 @@
 
 .page {
   margin-top: 97.6px;
-  height: calc(100vh - 97.6px);
+  // height: calc(100vh - 97.6px);
   width: 100vw;
-  height: fit-content;
+  padding: 2em;
+  padding-top: 0;
 
   h1 {
-      margin-left: 10px;
+    margin-left: 10px;
   }
-}
 
-@media screen and (max-width: 780px) {
-  .page {
-    height: fit-content;
-    h1 {
-        margin-left: 10px;
+  ul {
+    list-style: none;
+
+    li {
+      &:not(:last-child) {
+        border-bottom: 1px solid black;
+      }
     }
   }
 }
+
+// @media screen and (max-width: 1200px) {
+//   .page {
+//   }
+// }

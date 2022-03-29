@@ -48,7 +48,6 @@ const NormalLinks = [
 const AuthLinks = [
   { to: "/booked", title: "Current Schedules" },
   { to: "/newride", title: "Book New Schedule" },
-  { to: "/rideshare", title: "Share a Ride" },
 ];
 
 const Navbar = (props: NavProps) => {

@@ -1,4 +1,5 @@
 type Schedule = {
+  id: string;
   source: {
     place_name: String;
     place_cord: [Number, Number];
