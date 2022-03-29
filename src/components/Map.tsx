@@ -7,8 +7,8 @@ import { Button, ButtonHierarchy, ButtonColor, ButtonSize } from "./Button";
 import styles from '../styles/components/map.module.scss';
 
 // variables
-// const GOOGLE_MAPS_API_KEY = "AIzaSyD-4mYliv0FRhXyWZAtJuzWLmpn6VrHEdc";
-const GOOGLE_MAPS_API_KEY = "AIzaSyA2X_DJUS99h9d9EISf6vh5I2J9-oj7Ddo";
+const GOOGLE_MAPS_API_KEY = "AIzaSyD-4mYliv0FRhXyWZAtJuzWLmpn6VrHEdc";
+// const GOOGLE_MAPS_API_KEY = "AIzaSyA2X_DJUS99h9d9EISf6vh5I2J9-oj7Ddo";
 
 const libraries = ["places"];
 const ZOOM = 15;
