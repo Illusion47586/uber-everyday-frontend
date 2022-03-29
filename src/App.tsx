@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { AuthContext } from "./context/AuthContext";
 import CurrentSchedules from "./pages/CurrentSchedules";
+// import RideShare from "./pages/RideShare";
 import Home from "./pages/Home";
 import MapTest from "./pages/MapTest";
 import NewRide from "./pages/NewRide";
@@ -27,8 +28,9 @@ function App() {
           <Route path="/map" element={<MapTest />} />
           <Route path="/newride" element={ProtectedRoute(<NewRide />)} />
           <Route path="/booked" element={ProtectedRoute(<CurrentSchedules />)} />
+          {/* <Route path="/rideshare" element={ProtectedRoute(<RideShare />)} /> */}
           {/* <Route path="/r" element={<Home />} /> */}
-          <Route path="/*" element={<Navigate to="/" />} />
+          {/* <Route path="/*" element={<Navigate to="/" />} /> */}
         </Routes>
       </div>
     </>

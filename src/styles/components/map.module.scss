@@ -8,6 +8,17 @@
   height: 100%;
   // padding: 1%;
   // padding-top: 0%
+
+  Button {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    z-index: 10;
+  }
+}
+
+.full {
+  height: calc(100vh - 97.6px);
 }
 
 .mapNavigationContainer {
