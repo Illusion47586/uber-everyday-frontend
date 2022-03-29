@@ -15,6 +15,7 @@ const AuthContextProvider: FC = ({ children }) => {
 
   const login = () => {
     setIsAuthorized(true);
+    navigate("/");
   };
   const logout = () => {
     setIsAuthorized(false);

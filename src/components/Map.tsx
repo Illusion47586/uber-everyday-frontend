@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { GoogleMap, useLoadScript, Marker, DirectionsRenderer } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  DirectionsRenderer,
+} from "@react-google-maps/api";
 import { Spinner, User } from "phosphor-react";
 import _uniqueId from "lodash/uniqueId";
 import userLocal from "../images/location.png";
 import { Button, ButtonHierarchy, ButtonColor, ButtonSize } from "./Button";
-import styles from '../styles/components/map.module.scss';
-
-// variables
-const GOOGLE_MAPS_API_KEY = "AIzaSyD-4mYliv0FRhXyWZAtJuzWLmpn6VrHEdc";
-// const GOOGLE_MAPS_API_KEY = "AIzaSyA2X_DJUS99h9d9EISf6vh5I2J9-oj7Ddo";
+import styles from "../styles/components/map.module.scss";
 
 const libraries = ["places"];
 const ZOOM = 15;
@@ -20,20 +21,25 @@ const MAP_CONTAINER_STYLE = {
 
 const CENTER = {
   lat: 28,
-  lng: 77
-}
-const OPTIONS = {
-  fullscreenControl: false,
-  zoomControl: false,
-  disableDoubleClickZoom: true,
+  lng: 77,
+};
+
+type MapProps = {
+  interactive?: boolean;
+  directionRoute: any;
 };
 
 // map component
-export default function Map(props: any) {
+export default function Map(props: MapProps) {
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [currentPosition, setCurrentPosition] = useState<any>(null);
 
-
+  const OPTIONS = {
+    fullscreenControl: false,
+    zoomControl: false,
+    disableDoubleClickZoom: true,
+    gestureHandling: props.interactive === false ? "none" : "auto",
+  };
   const success = (position: any) => {
     CENTER.lat = position.coords.latitude;
     CENTER.lng = position.coords.longitude;
@@ -43,12 +49,12 @@ export default function Map(props: any) {
   useEffect(() => {
     console.log(map);
     navigator.geolocation.getCurrentPosition(success);
-    map?.setCenter(CENTER)
-  })
+    map?.setCenter(CENTER);
+  });
 
   // Loading Api Scripts
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_KEY!.toString(),
     // @ts-ignore
     libraries,
   });
@@ -60,18 +66,21 @@ export default function Map(props: any) {
   // Map Component
   return (
     <div className={styles.mapContainer}>
-      <Button
-        color={ButtonColor.Black}
-        hierarchy={ButtonHierarchy.primary}
-        size={ButtonSize.small}
-        icon={User}
-        onClick={() => {
-          navigator.geolocation.getCurrentPosition(success);
-          map?.setCenter(CENTER);
-        }}
-      />
+      {props.interactive && (
+        <Button
+          color={ButtonColor.Black}
+          hierarchy={ButtonHierarchy.primary}
+          size={ButtonSize.small}
+          icon={User}
+          onClick={() => {
+            navigator.geolocation.getCurrentPosition(success);
+            map?.setCenter(CENTER);
+          }}
+        />
+      )}
 
       <GoogleMap
+        clickableIcons={props.interactive}
         mapContainerStyle={MAP_CONTAINER_STYLE}
         zoom={ZOOM}
         center={CENTER}
@@ -80,8 +89,7 @@ export default function Map(props: any) {
           setMap(map);
         }}
       >
-
-        {currentPosition ?
+        {currentPosition ? (
           <Marker
             position={CENTER}
             icon={{
@@ -89,10 +97,13 @@ export default function Map(props: any) {
               scaledSize: new google.maps.Size(50, 50),
             }}
           ></Marker>
-          : null}
+        ) : null}
 
-        {props.directionRoute && <DirectionsRenderer directions={props.directionRoute}></DirectionsRenderer>}
-
+        {props.directionRoute && (
+          <DirectionsRenderer
+            directions={props.directionRoute}
+          ></DirectionsRenderer>
+        )}
       </GoogleMap>
     </div>
   );

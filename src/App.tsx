@@ -24,10 +24,16 @@ function App() {
       <Navbar />
       <div className={styles.page}>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={!context?.isAuthorized ? <Home /> : <CurrentSchedules />}
+          />
           <Route path="/map" element={<MapTest />} />
           <Route path="/newride" element={ProtectedRoute(<NewRide />)} />
-          <Route path="/booked" element={ProtectedRoute(<CurrentSchedules />)} />
+          <Route
+            path="/booked"
+            element={ProtectedRoute(<CurrentSchedules />)}
+          />
           {/* <Route path="/rideshare" element={ProtectedRoute(<RideShare />)} /> */}
           {/* <Route path="/r" element={<Home />} /> */}
           {/* <Route path="/*" element={<Navigate to="/" />} /> */}

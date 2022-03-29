@@ -6,6 +6,8 @@
   // grid-template-columns: 6fr 4fr;
   // margin: 0px 2% 0px 2%;
   height: 100%;
+  width: 100%;
+  border-radius: 5px;
   // padding: 1%;
   // padding-top: 0%
 
@@ -48,14 +50,14 @@
     display: grid;
     grid-template-columns: 3fr 1fr;
   }
-  
+
   .endInput {
     padding: 2%;
     padding-bottom: 4%;
     display: grid;
-    grid-template-columns: 3fr 1fr; 
+    grid-template-columns: 3fr 1fr;
   }
-  
+
   .btc {
     display: flex;
     justify-content: space-between;
