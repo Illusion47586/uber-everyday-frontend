@@ -5,6 +5,7 @@
   margin-top: 97.6px;
   height: calc(100vh - 97.6px);
   width: 100vw;
+  height: fit-content;
 
   h1 {
       margin-left: 10px;
@@ -13,8 +14,7 @@
 
 @media screen and (max-width: 780px) {
   .page {
-    height: auto;
-    
+    height: fit-content;
     h1 {
         margin-left: 10px;
     }
