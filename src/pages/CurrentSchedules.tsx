@@ -24,8 +24,7 @@ const CurrentSchedules = (props: Props) => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/rides?phone=${
-          import.meta.env.VITE_TEST_ID
+        `${import.meta.env.VITE_BACKEND_URL}/rides?phone=${import.meta.env.VITE_TEST_ID
         }`
       );
       if (response.status === 200) {
@@ -80,11 +79,13 @@ const CurrentSchedules = (props: Props) => {
               var y2 = h2 * 60 + m2;
 
               if (y2 - y1 <= 5 && y2 - y1 >= 0) {
-                console.log(`Your Ride is Here in 5 minutes! ${y2 - y1}`);
+                console.log(`Your Ride is Here in ${y2 - y1} minutes!`);
+                const body = {
+                  "ride_date": "2022-03-30"
+                }
                 const response = await axios.post(
-                  `${import.meta.env.VITE_BACKEND_URL}/trip/${s.id}?phone=${
-                    import.meta.env.VITE_TEST_ID
-                  }`
+                  `${import.meta.env.VITE_BACKEND_URL}/trip/${s.id}?phone=${import.meta.env.VITE_TEST_ID
+                  }`, body
                 );
                 if (response.status === 201) {
                   toast("Trip booked! Please wait for your trip!");
