@@ -26,7 +26,7 @@ const CENTER = {
 
 type MapProps = {
   interactive?: boolean;
-  directionRoute: any;
+  directionRoute?: any;
 };
 
 // map component
