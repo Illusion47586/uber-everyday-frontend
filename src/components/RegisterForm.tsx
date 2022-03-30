@@ -75,7 +75,6 @@ const RegisterForm = (props: Props) => {
   const sourceRef = useRef<HTMLInputElement>(null);
   const destinationRef = useRef<HTMLInputElement>(null);
 
-
   const calculateDirection = async () => {
     const source = sourceRef.current?.value;
     const destination = destinationRef.current?.value;
@@ -146,14 +145,21 @@ const RegisterForm = (props: Props) => {
           };
 
           const response = await axios.post(
-            `${import.meta.env.VITE_BACKEND_URL}/ride?phone=${import.meta.env.VITE_TEST_ID
+            `${import.meta.env.VITE_BACKEND_URL}/ride?phone=${
+              import.meta.env.VITE_TEST_ID
             }`,
             data
           );
 
           if (response.status === 201) {
             console.log(response.data);
-            toast(`Yay! bete Mauj kardi`);
+            toast(
+              `Yay! You rides have been scheduled. The actual cost was INR ${response.data.bill_no_discount.toFixed(
+                2
+              )}, but the incurred cost is INR ${response.data.cost.toFixed(
+                2
+              )}!`
+            );
           } else {
             toast.error("Ride could not be created.");
           }
@@ -223,27 +229,14 @@ const RegisterForm = (props: Props) => {
             />
             {distance && (
               <div className={styles.grid}>
-                <p>
-                  Distance:
-                </p>
-                <p>
-                  {distance.toFixed(2)} Km
-                </p>
-                <p>
-                  Trip Duration:
-                </p>
-                <p>
-                  {duration?.toFixed(2)} Minutes
-                </p>
-                <p>
-                  Cost Per Trip:
-                </p>
-                <p>
-                  INR {cost}
-                </p>
+                <p>Distance:</p>
+                <p>{distance.toFixed(2)} Km</p>
+                <p>Trip Duration:</p>
+                <p>{duration?.toFixed(2)} Minutes</p>
+                <p>Cost Per Trip:</p>
+                <p>INR {cost}</p>
               </div>
             )}
-
 
             <motion.label htmlFor="from">
               From
@@ -280,7 +273,7 @@ const RegisterForm = (props: Props) => {
                 <Field
                   name="time"
                   type="time"
-                // min={values.from.length === 0 ? currentDate : values.from}
+                  // min={values.from.length === 0 ? currentDate : values.from}
                 />
               </>
             )}
@@ -375,11 +368,10 @@ const RegisterForm = (props: Props) => {
               icon={ArrowRight}
               iconWt="bold"
             />
-
           </Form>
         )}
       </Formik>
-    </motion.div >
+    </motion.div>
   );
 };
 
