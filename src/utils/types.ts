@@ -1,16 +1,16 @@
 type Schedule = {
   id?: string;
   source: {
-    place_name: String;
+    place_name: string;
     place_cord?: [Number, Number];
   };
   destination: {
-    place_name: String;
+    place_name: string;
     place_cord?: [Number, Number];
   };
   duration: Number; // minutes
   distance: Number; // km
-  timing: String;
+  timing: string;
   sharing_allowed?: Boolean;
   total_traveller?: Number;
   start_date: Date;
