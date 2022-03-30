@@ -1,7 +1,7 @@
 import { Formik, Form, Field } from "formik";
 import Select from "react-select";
 import * as Yup from "yup";
-import { Button } from "./Button";
+import { Button, ButtonHierarchy, ButtonSize } from "./Button";
 import dateFormat from "dateformat";
 import { ArrowRight } from "phosphor-react";
 
@@ -70,14 +70,15 @@ const RegisterForm = (props: Props) => {
   const currentDate = dateFormat("yyyy-mm-dd");
   const [distance, setDistance] = useState<Number | null>();
   const [duration, setDuration] = useState<Number | null>();
+  const [cost, setCost] = useState<String | null>();
 
   const sourceRef = useRef<HTMLInputElement>(null);
   const destinationRef = useRef<HTMLInputElement>(null);
 
-  const [visible, setVisible] = useState(false);
-  const [data, setData] = useState();
 
-  const calculateDirection = async (source?: string, destination?: string) => {
+  const calculateDirection = async () => {
+    const source = sourceRef.current?.value;
+    const destination = destinationRef.current?.value;
     if (!source || !destination) return;
 
     const directionCalc = new google.maps.DirectionsService();
@@ -88,11 +89,22 @@ const RegisterForm = (props: Props) => {
     });
 
     console.log(result);
-
     props.setDirectionRoute(result);
 
-    setDistance(result.routes[0].legs[0].distance!.value / 1000);
-    setDuration(result.routes[0].legs[0].duration!.value / 60);
+    const dis = result.routes[0].legs[0].distance!.value / 1000;
+    const dur = result.routes[0].legs[0].duration!.value / 60;
+
+    setDistance(dis);
+    setDuration(dur);
+
+    const cost = 0;
+    const basePrice = 53;
+    const ratePerKm = 7;
+    const rideTimeChargePerMin = 0.8;
+    const distanceCharge = ratePerKm * dis;
+    const rideTimeCharge = rideTimeChargePerMin * dur;
+    let perDayCost = basePrice + distanceCharge + rideTimeCharge;
+    setCost(perDayCost.toFixed(2));
   };
 
   return (
@@ -111,10 +123,7 @@ const RegisterForm = (props: Props) => {
         validationSchema={NewRideSchema}
         onSubmit={async (values) => {
           console.log(values);
-          await calculateDirection(
-            sourceRef.current?.value,
-            destinationRef.current?.value
-          );
+          await calculateDirection();
 
           // @ts-ignore
           const days = values.daysOfWeek!.map((v) => v.value);
@@ -137,15 +146,14 @@ const RegisterForm = (props: Props) => {
           };
 
           const response = await axios.post(
-            `${import.meta.env.VITE_BACKEND_URL}/ride?phone=${
-              import.meta.env.VITE_TEST_ID
+            `${import.meta.env.VITE_BACKEND_URL}/ride?phone=${import.meta.env.VITE_TEST_ID
             }`,
             data
           );
 
           if (response.status === 201) {
             console.log(response.data);
-            toast("Yay! you");
+            toast(`Yay! bete Mauj kardi`);
           } else {
             toast.error("Ride could not be created.");
           }
@@ -205,6 +213,38 @@ const RegisterForm = (props: Props) => {
                 />
               </Autocomplete>
             </div>
+            <Button
+              text="Calculate Cost"
+              onClick={calculateDirection}
+              icon={ArrowRight}
+              hierarchy={ButtonHierarchy.primary}
+              size={ButtonSize.small}
+              iconWt="bold"
+            />
+            {distance && (
+              <div className={styles.grid}>
+                <p>
+                  Distance:
+                </p>
+                <p>
+                  {distance.toFixed(2)} Km
+                </p>
+                <p>
+                  Trip Duration:
+                </p>
+                <p>
+                  {duration?.toFixed(2)} Minutes
+                </p>
+                <p>
+                  Cost Per Trip:
+                </p>
+                <p>
+                  INR {cost}
+                </p>
+              </div>
+            )}
+
+
             <motion.label htmlFor="from">
               From
               {errors.from && touched.from ? (
@@ -240,7 +280,7 @@ const RegisterForm = (props: Props) => {
                 <Field
                   name="time"
                   type="time"
-                  // min={values.from.length === 0 ? currentDate : values.from}
+                // min={values.from.length === 0 ? currentDate : values.from}
                 />
               </>
             )}
@@ -328,16 +368,18 @@ const RegisterForm = (props: Props) => {
               }}
               value={values.travellers}
             />
+
             <Button
               text="Submit"
               onClick={submitForm}
               icon={ArrowRight}
               iconWt="bold"
             />
+
           </Form>
         )}
       </Formik>
-    </motion.div>
+    </motion.div >
   );
 };
 
