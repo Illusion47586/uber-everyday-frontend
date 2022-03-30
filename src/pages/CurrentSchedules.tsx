@@ -24,7 +24,8 @@ const CurrentSchedules = (props: Props) => {
   const getData = async () => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/rides?phone=${import.meta.env.VITE_TEST_ID
+        `${import.meta.env.VITE_BACKEND_URL}/rides?phone=${
+          import.meta.env.VITE_TEST_ID
         }`
       );
       if (response.status === 200) {
@@ -53,21 +54,21 @@ const CurrentSchedules = (props: Props) => {
     }
 
     intervalID = setInterval(() => {
-
       if (schedules) {
-        schedules.forEach((s) => {
-
+        schedules.forEach(async (s) => {
           // logic
           const start = moment(s.start_date);
           const end = moment(s.end_date);
           const currentDate = moment(new Date());
-          if (currentDate.isSameOrAfter(start) && currentDate.isSameOrBefore(end)) {
+          if (
+            currentDate.isSameOrAfter(start) &&
+            currentDate.isSameOrBefore(end)
+          ) {
             const day = currentDate.day();
             if (s.days.includes(day)) {
-              const dt = new Date()
+              const dt = new Date();
               let time = dt.getHours() + ":" + dt.getMinutes();
-              if (dt.getHours() < 10)
-                time = "0" + time;
+              if (dt.getHours() < 10) time = "0" + time;
               var t1 = new Date("01/01/2007 " + time);
               var t2 = new Date("01/01/2007 " + s.timing);
 
@@ -78,15 +79,21 @@ const CurrentSchedules = (props: Props) => {
               var y1 = h1 * 60 + m1;
               var y2 = h2 * 60 + m2;
 
-
               if (y2 - y1 <= 5 && y2 - y1 >= 0) {
                 console.log(`Your Ride is Here in 5 minutes! ${y2 - y1}`);
-                axios.post()
-              }
-              else {
+                const response = await axios.post(
+                  `${import.meta.env.VITE_BACKEND_URL}/trip/${s.id}?phone=${
+                    import.meta.env.VITE_TEST_ID
+                  }`
+                );
+                if (response.status === 201) {
+                  toast("Trip booked! Please wait for your trip!");
+                } else {
+                  toast.error("Could not book your trip.");
+                }
+              } else {
                 console.log("not now ignore!");
               }
-
             }
           }
         });
@@ -96,7 +103,7 @@ const CurrentSchedules = (props: Props) => {
 
   useEffect(() => {
     checkForSchedules();
-  }, [schedules])
+  }, [schedules]);
 
   useEffect(() => {
     getData();
