@@ -5,6 +5,16 @@ h2.heading {
   width: min(80vw, 400px);
 }
 
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 10px;
+
+  p {
+    margin: 5px;
+  }
+}
+
 .expand {
   width: 100%;
 }

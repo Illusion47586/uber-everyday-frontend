@@ -79,6 +79,7 @@ export default function Map(props: MapProps) {
         />
       )}
 
+
       <GoogleMap
         clickableIcons={props.interactive}
         mapContainerStyle={MAP_CONTAINER_STYLE}
