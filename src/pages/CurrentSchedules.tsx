@@ -70,15 +70,15 @@ const CurrentSchedules = (props: Props) => {
               const dt = new Date();
               let time = dt.getHours() + ":" + dt.getMinutes();
               if (dt.getHours() < 10) time = "0" + time;
-              var t1 = new Date("01/01/2007 " + time);
-              var t2 = new Date("01/01/2007 " + s.timing);
+              const t1 = new Date("01/01/2007 " + time);
+              const t2 = new Date("01/01/2007 " + s.timing);
 
-              var h1 = t1.getHours();
-              var h2 = t2.getHours();
-              var m1 = t1.getMinutes();
-              var m2 = t2.getMinutes();
-              var y1 = h1 * 60 + m1;
-              var y2 = h2 * 60 + m2;
+              const h1 = t1.getHours();
+              const h2 = t2.getHours();
+              const m1 = t1.getMinutes();
+              const m2 = t2.getMinutes();
+              const y1 = h1 * 60 + m1;
+              const y2 = h2 * 60 + m2;
 
               if (y2 - y1 <= 5 && y2 - y1 > 0) {
                 console.log(`Your Ride is Here in ${y2 - y1} minutes!`);
