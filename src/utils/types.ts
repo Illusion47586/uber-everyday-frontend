@@ -1,12 +1,12 @@
 type Schedule = {
-  id: string;
+  id?: string;
   source: {
     place_name: String;
-    place_cord: [Number, Number];
+    place_cord?: [Number, Number];
   };
   destination: {
     place_name: String;
-    place_cord: [Number, Number];
+    place_cord?: [Number, Number];
   };
   duration: Number; // minutes
   distance: Number; // km

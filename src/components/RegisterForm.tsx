@@ -8,8 +8,11 @@ import { ArrowRight } from "phosphor-react";
 import styles from "../styles/components/registerForm.module.scss";
 import { motion } from "framer-motion";
 import { baseMotionSettings } from "../utils/defaultAnimation";
-import { useState } from "react";
+import { LegacyRef, useRef, useState } from "react";
 import { Autocomplete } from "@react-google-maps/api";
+import axios from "axios";
+import Schedule from "../utils/types";
+import { toast } from "react-toastify";
 
 const options = [
   { value: "Food", label: "Food" },
@@ -64,10 +67,13 @@ type Props = {
 
 const RegisterForm = (props: Props) => {
   const currentDate = dateFormat("yyyy-mm-dd");
-  const [distance, setDistance] = useState<string | null>();
-  const [duration, setDuration] = useState<string | null>();
+  const [distance, setDistance] = useState<Number | null>();
+  const [duration, setDuration] = useState<Number | null>();
 
-  const calculateDirection = async (source: string, destination: string) => {
+  const sourceRef = useRef<HTMLInputElement>(null);
+  const destinationRef = useRef<HTMLInputElement>(null);
+
+  const calculateDirection = async (source?: string, destination?: string) => {
     if (!source || !destination) return;
 
     const directionCalc = new google.maps.DirectionsService();
@@ -81,8 +87,8 @@ const RegisterForm = (props: Props) => {
 
     props.setDirectionRoute(result);
 
-    setDistance(result.routes[0].legs[0].distance?.text);
-    setDuration(result.routes[0].legs[0].duration?.text);
+    setDistance(result.routes[0].legs[0].distance!.value / 1000);
+    setDuration(result.routes[0].legs[0].duration!.value / 60);
   };
 
   return (
@@ -101,7 +107,43 @@ const RegisterForm = (props: Props) => {
         validationSchema={NewRideSchema}
         onSubmit={async (values) => {
           console.log(values);
-          await calculateDirection(values.source!, values.destination!);
+          await calculateDirection(
+            sourceRef.current?.value,
+            destinationRef.current?.value
+          );
+
+          // @ts-ignore
+          const days = values.daysOfWeek!.map((v) => v.value);
+
+          const data: Schedule = {
+            source: {
+              place_name: sourceRef.current!.value,
+            },
+            destination: {
+              place_name: destinationRef.current!.value,
+            },
+            duration: duration!,
+            distance: distance!,
+            start_date: new Date(values.from),
+            end_date: new Date(values.until),
+            timing: values.time,
+            days: days,
+            total_traveller: values.travellers.value,
+            sharing_allowed: values.sharing.value,
+          };
+
+          const response = await axios.post(
+            `${import.meta.env.VITE_BACKEND_URL}/ride?phone=${
+              import.meta.env.VITE_TEST_ID
+            }`,
+            data
+          );
+
+          if (response.status === 201) {
+            console.log(response.data);
+          } else {
+            toast.error("Ride could not be created.");
+          }
         }}
       >
         {({
@@ -132,7 +174,7 @@ const RegisterForm = (props: Props) => {
                   placeholder="Enter Source"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.source}
+                  ref={sourceRef}
                 />
               </Autocomplete>
             </div>
@@ -154,7 +196,7 @@ const RegisterForm = (props: Props) => {
                   placeholder="Enter Destination"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.destination}
+                  ref={destinationRef}
                 />
               </Autocomplete>
             </div>
