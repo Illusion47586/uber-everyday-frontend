@@ -1,5 +1,6 @@
 import axios from "axios";
 import { motion } from "framer-motion";
+import { identity } from "lodash";
 import { TrendUp } from "phosphor-react";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -14,6 +15,7 @@ import { RideInfo } from "../components/RideInfo";
 import styles from "../styles/pages/current_schedule.module.scss";
 import { baseMotionSettings } from "../utils/defaultAnimation";
 import Schedule from "../utils/types";
+import moment from "moment";
 
 type Props = {};
 
@@ -45,8 +47,27 @@ const CurrentSchedules = (props: Props) => {
     }
   };
 
+  let intervalID: number | undefined = undefined;
+
+  const checkForSchedules = () => {
+    if (intervalID) {
+      clearInterval(intervalID);
+    }
+
+    intervalID = setInterval(() => {
+      if (schedules) {
+        schedules.forEach((s) => {
+          // logic
+          const start = moment(s.start_date);
+          const end = moment(s.end_date);
+        });
+      }
+    }, 1000 * 60 * 5);
+  };
+
   useEffect(() => {
     getData();
+    checkForSchedules();
   }, []);
 
   return (
