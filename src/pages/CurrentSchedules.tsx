@@ -78,12 +78,13 @@ const CurrentSchedules = (props: Props) => {
               var y1 = h1 * 60 + m1;
               var y2 = h2 * 60 + m2;
 
-              if (y2 - y1 <= 5 && y2 - y1 >= 0) {
+              if (y2 - y1 <= 5 && y2 - y1 > 0) {
                 console.log(`Your Ride is Here in ${y2 - y1} minutes!`);
                 const body = {
                   "ride_date": "2022-03-30"
                 }
                 const response = await axios.post(
+                  // @ts-ignore
                   `${import.meta.env.VITE_BACKEND_URL}/trip/${s.id}?phone=${import.meta.env.VITE_TEST_ID
                   }`, body
                 );
