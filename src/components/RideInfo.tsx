@@ -1,5 +1,7 @@
 import dateFormat from "dateformat";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
+import axios from "axios";
+
 import {
   ArrowDown,
   ArrowRight,
@@ -18,6 +20,8 @@ import {
 import styles from "../styles/components/rideinfo.module.scss";
 import { baseMotionSettings } from "../utils/defaultAnimation";
 import Schedule from "../utils/types";
+import { toast } from "react-toastify";
+
 
 interface Props {
   data: Schedule;
@@ -25,6 +29,27 @@ interface Props {
 
 const RideInfo = (props: Props) => {
   const [expanded, setExpanded] = useState<any>(false);
+
+  const getData = async () => {
+    const url = `${import.meta.env.VITE_BACKEND_URL}/invoice/${props.data.id}?phone=${import.meta.env.VITE_TEST_ID}`;
+    console.log(url)
+
+    try {
+      const response = await axios.get(url
+      );
+      if (response.status === 200) {
+        window.open(url, "_blank")
+      }
+      else {
+        toast.error("Could not load data.");
+      }
+    }
+    catch (e) {
+      toast.error("Could not load data.");
+    }
+  };
+
+
 
   return (
     // <AnimateSharedLayout>
@@ -45,6 +70,8 @@ const RideInfo = (props: Props) => {
             icon={File}
             size={ButtonSize.small}
             // color={ButtonColor.Red}
+            onClick={getData}
+
           />
           <Button
             text="View More"
