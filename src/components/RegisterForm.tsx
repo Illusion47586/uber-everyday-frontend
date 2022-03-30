@@ -13,6 +13,7 @@ import { Autocomplete } from "@react-google-maps/api";
 import axios from "axios";
 import Schedule from "../utils/types";
 import { toast } from "react-toastify";
+import RideBenefit from "./RideBenefit";
 
 const options = [
   { value: "Food", label: "Food" },
@@ -36,13 +37,13 @@ const travellers = [
 ];
 
 const days = [
-  { value: 0, label: "Monday" },
-  { value: 1, label: "Tuesday" },
-  { value: 2, label: "Wednesday" },
-  { value: 3, label: "Thursday" },
-  { value: 4, label: "Friday" },
-  { value: 5, label: "Saturday" },
-  { value: 6, label: "Sunday" },
+  { value: 1, label: "Monday" },
+  { value: 2, label: "Tuesday" },
+  { value: 3, label: "Wednesday" },
+  { value: 4, label: "Thursday" },
+  { value: 5, label: "Friday" },
+  { value: 6, label: "Saturday" },
+  { value: 0, label: "Sunday" },
 ];
 
 const NewRideSchema = Yup.object().shape({
@@ -72,6 +73,9 @@ const RegisterForm = (props: Props) => {
 
   const sourceRef = useRef<HTMLInputElement>(null);
   const destinationRef = useRef<HTMLInputElement>(null);
+
+  const [visible, setVisible] = useState(false);
+  const [data, setData] = useState();
 
   const calculateDirection = async (source?: string, destination?: string) => {
     if (!source || !destination) return;
@@ -141,6 +145,7 @@ const RegisterForm = (props: Props) => {
 
           if (response.status === 201) {
             console.log(response.data);
+            toast("Yay! you");
           } else {
             toast.error("Ride could not be created.");
           }

@@ -1,0 +1,15 @@
+@use "../base/mixins";
+@use "../base/constants" as *;
+
+.dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 100vh;
+  width: 100vw;
+
+  @include mixins.center;
+
+  background-color: white;
+}
