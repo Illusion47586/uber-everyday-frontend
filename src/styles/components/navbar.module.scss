@@ -1,0 +1,150 @@
+@use "../base/mixins";
+@use "../base/constants" as *;
+
+nav#nav {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 40px;
+  // -webkit-backdrop-filter: blur(4px);
+  // backdrop-filter: blur(4px);
+  // background-color: rgba(white, 0.2);
+  display: flex;
+  flex-direction: row;
+
+  #logo {
+    font-size: 1.25em;
+    font-weight: 600;
+    min-width: max-content;
+    margin-right: 1.75em;
+    position: relative;
+    @include mixins.center;
+
+    &::after {
+      content: "";
+      background-color: black;
+      height: 80%;
+      width: 1px;
+      border-radius: 3px;
+      position: absolute;
+      right: -0.85em;
+      top: 50%;
+      transform: translateY(-50%) rotateZ(15deg);
+    }
+  }
+
+  #navItems {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    ul {
+      list-style: none;
+
+      li {
+        display: inline-flex;
+        &:not(:last-child) {
+          margin-right: 1em;
+        }
+      }
+    }
+  }
+}
+
+.navLink {
+  transition: all 0.3s;
+
+  &--active {
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  nav#nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    #logo {
+      font-size: 1.25em;
+      font-weight: 600;
+      min-width: max-content;
+      margin-right: 1.75em;
+      position: relative;
+      @include mixins.center;
+      z-index: 1001;
+
+      &::after {
+        content: "";
+        background-color: black;
+        height: 80%;
+        width: 1px;
+        border-radius: 3px;
+        position: absolute;
+        right: -0.85em;
+        top: 50%;
+        transform: translateY(-50%) rotateZ(15deg);
+      }
+    }
+
+    .reduceButton {
+      height: 37px;
+      width: 37px;
+      background-color: rgba(lightgrey, 0.6);
+      @include mixins.center;
+      border-radius: 7px;
+      z-index: 1001;
+      cursor: pointer;
+
+      svg {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    #navItems {
+      @include mixins.fullViewport;
+      @include mixins.center;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      // transform: translate(-50%, -50%);
+      background-color: rgba(white, 0.4);
+      backdrop-filter: blur(10px);
+      -ms-user-select: none;
+      -webkit-user-select: none;
+      user-select: none;
+
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 999;
+
+      ul {
+        list-style: none;
+
+        li {
+          display: flex;
+          font-size: 1.5em;
+          &:not(:last-child) {
+            margin-bottom: 0.75em;
+          }
+        }
+
+        &:first-child {
+          margin-bottom: 2em;
+
+          li {
+            &:not(:last-child) {
+              margin-bottom: 2em;
+            }
+          }
+        }
+      }
+    }
+  }
+}

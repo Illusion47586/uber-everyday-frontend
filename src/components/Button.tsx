@@ -1,11 +1,12 @@
-import { IconProps } from "phosphor-react";
+import { IconProps, IconWeight } from "phosphor-react";
 import { MouseEventHandler } from "react";
 
-import styles from "../../styles/components/button.module.scss";
+import styles from "../styles/components/button.module.scss";
 
-enum ButtonHeirarchy {
+enum ButtonHierarchy {
   primary,
   secondary,
+  map,
 }
 
 enum ButtonColor {
@@ -28,15 +29,16 @@ interface Props {
   icon?: React.ForwardRefExoticComponent<
     IconProps & React.RefAttributes<SVGSVGElement>
   >;
-  heirarchy?: ButtonHeirarchy;
+  hierarchy?: ButtonHierarchy;
   color?: ButtonColor;
   size?: ButtonSize;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  iconWt?: IconWeight;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button = (props: Props) => {
-  const value = `${props.heirarchy?.toString() ?? "0"} ${
-    props.color?.toString() ?? "0"
+  const value = `${props.hierarchy?.toString() ?? "0"} ${
+    props.color?.toString() ?? "5"
   }`;
   return (
     <button
@@ -44,11 +46,14 @@ const Button = (props: Props) => {
       data-size={props.size?.toString() ?? "0"}
       className={styles.button}
       onClick={props.onClick}
+      type="button"
     >
       {props.text && <p>{props.text}</p>}
-      {props.icon && <props.icon className={styles.icon} weight="bold" />}
+      {props.icon && (
+        <props.icon className={styles.icon} weight={props.iconWt ?? "fill"} />
+      )}
     </button>
   );
 };
 
-export { Button, ButtonHeirarchy, ButtonColor, ButtonSize };
+export { Button, ButtonHierarchy, ButtonColor, ButtonSize };

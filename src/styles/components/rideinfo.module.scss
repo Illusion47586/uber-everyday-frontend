@@ -1,0 +1,63 @@
+@use "../base/mixins";
+@use "../base/constants" as *;
+
+li.rideContainer {
+  padding: 1em;
+
+  .rides {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      span {
+        font-weight: 600;
+      }
+    }
+
+    .btn_grp {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  .expanded {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    background-color: rgba(lightgrey, 0.3);
+
+    padding: 1em;
+    margin-top: 1em;
+
+    p {
+      span {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  li.rideContainer {
+    .rides {
+      flex-direction: column;
+
+      & > p {
+        &:not(:last-child) {
+          margin-bottom: 1em;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 560px) {
+  li.rideContainer {
+    .expanded {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}

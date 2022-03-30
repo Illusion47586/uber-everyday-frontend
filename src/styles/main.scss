@@ -1,5 +1,6 @@
 @use "./base/typography";
 @use "./base/constants";
+@use "./base/mixins";
 
 @use "./components/form";
 
@@ -16,9 +17,17 @@ html {
   background-color: constants.$bg-color-primary;
   scroll-behavior: smooth;
 
-  &::-webkit-scrollbar {
-    width: 0;
-    opacity: 0;
-    visibility: hidden;
-  }
+  width: 100vw;
+  // height: 100vh;
+  @include mixins.center;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  opacity: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(lightgrey, 0.8);
+  border-radius: 10px;
 }

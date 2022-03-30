@@ -5,7 +5,7 @@ form {
   @include mixins.center;
   flex-direction: column;
   justify-content: flex-start;
-  margin-top: 2em;
+  // margin-top: 2em;
 
   label {
     font-size: 1em;
@@ -19,7 +19,7 @@ form {
 
   input,
   textarea {
-    padding: 12px 20px;
+    padding: 10px 15px;
     border-radius: 5px;
     background-color: #f4f4f4;
     border: none;
@@ -27,7 +27,8 @@ form {
     margin-bottom: 1.5em;
     font-family: inherit;
     font-size: 1em;
-    width: min(80vw, 400px);
+    max-width: 80vw;
+    width: 100%;
     letter-spacing: 1px;
     border: 2px solid transparent;
     transition: all 0.3s;
@@ -42,31 +43,20 @@ form {
     }
 
     &[type="submit"] {
-      $color-primary: $purple;
-      $color-secondary: #ece8fc;
-      font-family: "manrope";
-      @include mixins.center;
-      min-width: 150px;
-      padding: 10px 30px;
-      vertical-align: middle;
-      border: none;
-      background-color: $color-secondary;
-      cursor: pointer;
-      transition: all 0.3s;
-      border-radius: 5px;
-
-      font-size: 1.1em;
-      font-weight: 500;
-      margin: 0;
-      letter-spacing: 0.8px;
-      color: $color-primary;
-
-      background-color: $color-secondary;
-      border: 1.5px solid $color-primary;
+      color: white;
 
       &:hover {
         transform: scale(1.07);
       }
     }
+  }
+}
+
+.select {
+  z-index: 3;
+  &-container {
+    max-width: 80vw;
+    width: 100%;
+    margin-bottom: 1.5em;
   }
 }
