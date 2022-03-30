@@ -1,15 +1,7 @@
 import axios from "axios";
 import { motion } from "framer-motion";
-import { identity } from "lodash";
-import { TrendUp } from "phosphor-react";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import {
-  Button,
-  ButtonColor,
-  ButtonHierarchy,
-  ButtonSize,
-} from "../components/Button";
 
 import { RideInfo } from "../components/RideInfo";
 import styles from "../styles/pages/current_schedule.module.scss";
