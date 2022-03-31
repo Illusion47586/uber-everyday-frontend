@@ -38,7 +38,7 @@ export default function Map(props: MapProps) {
     fullscreenControl: false,
     zoomControl: false,
     disableDoubleClickZoom: true,
-    gestureHandling: props.interactive === false ? "none" : "auto",
+    // gestureHandling: props.interactive === false ? "none" : "auto",
   };
   const success = (position: any) => {
     CENTER.lat = position.coords.latitude;
@@ -78,7 +78,6 @@ export default function Map(props: MapProps) {
           }}
         />
       )}
-
 
       <GoogleMap
         clickableIcons={props.interactive}

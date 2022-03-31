@@ -79,7 +79,9 @@ const CurrentSchedules = (props: Props) => {
               );
               if (response.status === 201) {
                 toast(
-                  "Trip booked! Please wait for your trip! Click this notification to cancel this trip.",
+                  "Trip booked! Please wait for your trip(" +
+                    response.data._id +
+                    ")! Click this notification to cancel this trip.",
                   {
                     onClick: async () => {
                       const r = await axios.patch(
@@ -100,7 +102,9 @@ const CurrentSchedules = (props: Props) => {
                       );
 
                       if (r.status === 200) {
-                        toast.info("Your trip was completed.");
+                        toast.info(
+                          "Your trip " + r.data._id + " was completed."
+                        );
                       }
                     },
                   }
